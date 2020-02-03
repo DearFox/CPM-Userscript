@@ -1,8 +1,10 @@
 // ==UserScript==
 // @name         CPM Userscript
 // @namespace    https://www.furaffinity.net/user/dearfox/
-// @version      0.4
+// @version      0.5
 // @description  http://cpmmod.top/
+// @downloadUrl  https://raw.githubusercontent.com/DearFox/CPM-Userscript/master/CPM%20Userscript.user.js
+// @updateUrl    https://raw.githubusercontent.com/DearFox/CPM-Userscript/master/CPM%20Userscript.user.js
 // @author       DearFox
 // @match        http://cpmmod.top/*
 // @grant        GM_addStyle
