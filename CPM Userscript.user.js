@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CPM Userscript
 // @namespace    https://www.furaffinity.net/user/dearfox/
-// @version      0.5
+// @version      0.6
 // @description  http://cpmmod.top/
 // @downloadUrl  https://raw.githubusercontent.com/DearFox/CPM-Userscript/master/CPM%20Userscript.user.js
 // @updateUrl    https://raw.githubusercontent.com/DearFox/CPM-Userscript/master/CPM%20Userscript.user.js
@@ -23,12 +23,32 @@
     }`);
     var model_info = document.getElementsByClassName("model-info")[0];
     if (model_info != undefined && site_url.substr(0, 7) == "/model/"){
-        console.log(model_info.innerHTML);
+        //console.log(model_info.innerHTML);
+        var card_body = document.getElementsByClassName("col-lg-5 pl-1 pr-1")[0];
+    if (card_body != undefined && site_url.substr(0, 7) == "/model/"){
+        var card = card_body.getElementsByClassName("card")[2];
+        var card_mb_3 = card_body.getElementsByClassName("card mb-3");
+        if (card != undefined){
+            console.log(card.innerHTML.slice(256, -160));
+            console.log(card_mb_3);
+            model_info.innerHTML = model_info.innerHTML + `<tbody>
+                            <tr>
+                            <td>Edit</td><td><a href="`+card.innerHTML.slice(256, -160)+`">`+site_url.substr(7, 9999)+`</a></td>
+                            </tr>
+                            <tr>
+                            <td>model.json</td><td><a href="http://cpmmod.top/storage/model/`+site_url.substr(7, 9999)+`/model.json">Open</a></td>
+                            </tr>
+                            </tbody>`
+            card_body.innerHTML = `<div class="card mb-3">`+card_mb_3[0].innerHTML+`</div><div class="card mb-3">`+card_mb_3[1].innerHTML+`</div>`;
+        } else{
         model_info.innerHTML = model_info.innerHTML + `<tbody><tr>
                             <td>model.json</td>
                             <td><a href="http://cpmmod.top/storage/model/`+site_url.substr(7, 9999)+`/model.json">`+site_url.substr(7, 9999)+`</a></td>
                         </tr></tbody>`
+        };
     };
+    };
+    //Темы
     if (theme == "dark_theme"){
     GM_addStyle(`
     body {
@@ -104,5 +124,5 @@
     border-top: 4px solid #22222d;
     }
     `);
-        };
+        }; // Темная тема
 })();
