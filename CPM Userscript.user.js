@@ -1,22 +1,122 @@
 // ==UserScript==
 // @name         CPM Userscript
 // @namespace    https://www.furaffinity.net/user/dearfox/
-// @version      0.7
+// @version      0.8.1
 // @description  http://cpmmod.top/
 // @downloadUrl  https://raw.githubusercontent.com/DearFox/CPM-Userscript/master/CPM%20Userscript.user.js
 // @updateUrl    https://raw.githubusercontent.com/DearFox/CPM-Userscript/master/CPM%20Userscript.user.js
 // @author       DearFox
 // @match        http://cpmmod.top/*
+// @require      https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js
 // @grant        GM_addStyle
 // ==/UserScript==
 
 (function() {
     'use strict';
+    //$.cookie('test', 'Привет Мир кукафф!!!1!!1!');
+    //console.log(Cookies.get('test'));
+window.onload = function () {
+    //dark_theme
+    document.getElementById("dark_theme").onclick = function (e) {
+        Cookies.set('theme', 'dark_theme', { expires: 365, path: '' });
+        location.reload();
+    }
+    //HerbTheme
+    document.getElementById("HerbTheme").onclick = function (e) {
+        Cookies.set('theme', 'HerbTheme', { expires: 365, path: '' });
+        location.reload();
+    }
+    //MarineTheme
+    document.getElementById("MarineTheme").onclick = function (e) {
+        Cookies.set('theme', 'MarineTheme', { expires: 365, path: '' });
+        location.reload();
+    }
+    //ClayTheme
+    document.getElementById("ClayTheme").onclick = function (e) {
+        Cookies.set('theme', 'ClayTheme', { expires: 365, path: '' });
+        location.reload();
+    }
+    //CrimsonHorizonTheme
+    document.getElementById("CrimsonHorizonTheme").onclick = function (e) {
+        Cookies.set('theme', 'CrimsonHorizonTheme', { expires: 365, path: '' });
+        location.reload();
+    }
+    //BluePlanetTheme
+    document.getElementById("BluePlanetTheme").onclick = function (e) {
+        Cookies.set('theme', 'BluePlanetTheme', { expires: 365, path: '' });
+        location.reload();
+    }
+    //CosmicGreenTheme
+    document.getElementById("CosmicGreenTheme").onclick = function (e) {
+        Cookies.set('theme', 'CosmicGreenTheme', { expires: 365, path: '' });
+        location.reload();
+    }
+    //GrayVoidTheme
+    document.getElementById("GrayVoidTheme").onclick = function (e) {
+        Cookies.set('theme', 'GrayVoidTheme', { expires: 365, path: '' });
+        location.reload();
+    }
+    //CyanDustTheme
+    document.getElementById("CyanDustTheme").onclick = function (e) {
+        Cookies.set('theme', 'CyanDustTheme', { expires: 365, path: '' });
+        location.reload();
+    }
+    //GoldenSolarTheme
+    document.getElementById("GoldenSolarTheme").onclick = function (e) {
+        Cookies.set('theme', 'GoldenSolarTheme', { expires: 365, path: '' });
+        location.reload();
+    }
+    //PurpleClusterTheme
+    document.getElementById("PurpleClusterTheme").onclick = function (e) {
+        Cookies.set('theme', 'PurpleClusterTheme', { expires: 365, path: '' });
+        location.reload();
+    }
+
+}
+
+
+
     //Настройки
-    var theme = "dark_theme"; //Названее темы. Сейчас доступно : dark_theme - темная тема. Любое значение (кроме существующих тем) отключат темы.
+    //var theme = "dark_theme"; //Названее темы. Сейчас доступно : dark_theme - темная тема. Любое значение (кроме существующих тем) отключат темы.
+    //Проверка переменной в куках на отсуствие данных
+    if (Cookies.get('theme') == undefined){
+        console.log('Переменная theme равна: '+Cookies.get('theme'));
+        Cookies.set('theme', 'default', { expires: 365, path: '' });
+        console.log('По этой причине она получила значение по умолчанию: '+Cookies.get('theme'));
+    } else{
+    console.log('Куки переменная равна: '+Cookies.get('theme'));
+    };
     //Скрипт
     var site_url = window.location.pathname; //url сайта (странички)
     console.log(site_url);
+    var navbar_nav_ml_auto
+    if (site_url == "/model"){
+    navbar_nav_ml_auto = document.getElementsByClassName("navbar-nav ml-auto")[1];
+    } else{
+    navbar_nav_ml_auto = document.getElementsByClassName("navbar-nav ml-auto")[0];
+    };
+    if (navbar_nav_ml_auto != undefined){
+    navbar_nav_ml_auto.innerHTML = `
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre="">Theme<span class="caret"></span>
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" id="dark_theme" href="#">Dark Mode</a>
+                                        <a class="dropdown-item" id="HerbTheme" href="#">Herb</a>
+                                        <a class="dropdown-item" id="MarineTheme" href="#">Marine</a>
+                                        <a class="dropdown-item" id="ClayTheme" href="#">Clay</a>
+                                        <a class="dropdown-item" id="CrimsonHorizonTheme" href="#">Crimson Horizon</a>
+                                        <a class="dropdown-item" id="BluePlanetTheme" href="#">Blue Planet</a>
+                                        <a class="dropdown-item" id="CosmicGreenTheme" href="#">Cosmic Green</a>
+                                        <a class="dropdown-item" id="GrayVoidTheme" href="#">Gray Void</a>
+                                        <a class="dropdown-item" id="CyanDustTheme" href="#">Cyan Dust</a>
+                                        <a class="dropdown-item" id="GoldenSolarTheme" href="#">Golden Solar</a>
+                                        <a class="dropdown-item" id="PurpleClusterTheme" href="#">Purple Cluster</a>
+                                    </div>
+                                </li>`+navbar_nav_ml_auto.innerHTML;
+    };
+    //console.log(navbar_nav_ml_auto.innerHTML);
     GM_addStyle(`
     .table tbody+tbody {
     border-top: 0px solid #000;
@@ -49,7 +149,7 @@
     };
     };
     //Темы
-    if (theme == "dark_theme"){
+    if (Cookies.get('theme') == "dark_theme"){
     GM_addStyle(`
     body {
     color: #ffffffad;
@@ -125,7 +225,7 @@
     }
     `);
         }; // Темная тема
-    if (theme == "HerbTheme"){
+    if (Cookies.get('theme') == "HerbTheme"){
     GM_addStyle(`body {
     color: #90cd90;
     background-color: #335133;
@@ -227,7 +327,7 @@ a:hover {
     font-weight: bold;
 }`);
     };
-    if (theme == "MarineTheme"){
+    if (Cookies.get('theme') == "MarineTheme"){
     GM_addStyle(`body {
     color: #9090cd;
     background-color: #333351;
@@ -329,7 +429,7 @@ a:hover {
     font-weight: bold;
 }`);
     };
-    if (theme == "ClayTheme"){
+    if (Cookies.get('theme') == "ClayTheme"){
     GM_addStyle(`body {
     color: #cd9090;
     background-color: #513333;
@@ -431,7 +531,7 @@ a:hover {
     font-weight: bold;
 }`);
     };
-    if (theme == "CrimsonHorizonTheme"){
+    if (Cookies.get('theme') == "CrimsonHorizonTheme"){
     GM_addStyle(`body {
     color: #cd9090;
     background-color: #513333;
@@ -536,7 +636,7 @@ a:hover {
     font-weight: bold;
 }`);
     };
-    if (theme == "BluePlanetTheme"){
+    if (Cookies.get('theme') == "BluePlanetTheme"){
     GM_addStyle(`body {
     color: #9090cd;
     background-color: #333351;
@@ -641,7 +741,7 @@ a:hover {
     font-weight: bold;
 }`);
     };
-    if (theme == "CosmicGreenTheme"){
+    if (Cookies.get('theme') == "CosmicGreenTheme"){
     GM_addStyle(`body {
     color: #90cd90;
     background-color: #335133;
@@ -746,7 +846,7 @@ a:hover {
     font-weight: bold;
 }`);
     };
-    if (theme == "GrayVoidTheme"){
+    if (Cookies.get('theme') == "GrayVoidTheme"){
     GM_addStyle(`body {
     color: #909090;
     background-color: #333333;
@@ -851,7 +951,7 @@ a:hover {
     font-weight: bold;
 }`);
     };
-    if (theme == "CyanDustTheme"){
+    if (Cookies.get('theme') == "CyanDustTheme"){
     GM_addStyle(`body {
     color: #90cdcd;
     background-color: #335151;
@@ -956,7 +1056,7 @@ a:hover {
     font-weight: bold;
 }`);
     };
-    if (theme == "GoldenSolarTheme"){
+    if (Cookies.get('theme') == "GoldenSolarTheme"){
     GM_addStyle(`body {
     color: #cdcd90;
     background-color: #515133;
@@ -1061,7 +1161,7 @@ a:hover {
     font-weight: bold;
 }`);
     };
-    if (theme == "PurpleClusterTheme"){
+    if (Cookies.get('theme') == "PurpleClusterTheme"){
     GM_addStyle(`body {
     color: #cd90cd;
     background-color: #513351;
