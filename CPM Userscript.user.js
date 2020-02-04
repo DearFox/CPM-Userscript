@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CPM Userscript
 // @namespace    https://www.furaffinity.net/user/dearfox/
-// @version      0.8.2
+// @version      0.8.3
 // @description  http://cpmmod.top/
 // @downloadUrl  https://raw.githubusercontent.com/DearFox/CPM-Userscript/master/CPM%20Userscript.user.js
 // @updateUrl    https://raw.githubusercontent.com/DearFox/CPM-Userscript/master/CPM%20Userscript.user.js
@@ -16,6 +16,11 @@
     //$.cookie('test', 'Привет Мир кукафф!!!1!!1!');
     //console.log(Cookies.get('test'));
 window.onload = function () {
+    //default
+    document.getElementById("default").onclick = function (e) {
+        Cookies.set('theme', 'default', { expires: 365, path: '' });
+        location.reload();
+    }
     //dark_theme
     document.getElementById("dark_theme").onclick = function (e) {
         Cookies.set('theme', 'dark_theme', { expires: 365, path: '' });
@@ -102,6 +107,7 @@ window.onload = function () {
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" id="default" href="#">Default</a>
                                         <a class="dropdown-item" id="dark_theme" href="#">Dark Mode</a>
                                         <a class="dropdown-item" id="HerbTheme" href="#">Herb</a>
                                         <a class="dropdown-item" id="MarineTheme" href="#">Marine</a>
